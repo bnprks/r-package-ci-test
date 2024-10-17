@@ -18,5 +18,6 @@ jobs:
           cache-version: 1
           extra-packages: |
             any::testthat
+            any::decor
           working-directory: 'ci.package'
       - run: Rscript -e 'testthat::test_local("ci.package")'
