@@ -1,0 +1,8 @@
+CFLAGS="$(pkg-config hdf5 zlib --cflags)"
+LIBS="$(pkg-config hdf5 zlib --libs)"
+
+# Make substitutions in Makevars.in
+sed \
+    -e "s|%CFLAGS%|${CFLAGS}|g" \
+    -e "s|%LIBS%|${LIBS}|g" \
+    src/Makevars.in > src/Makevars

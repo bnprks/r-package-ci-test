@@ -1,0 +1,8 @@
+CFLAGS=""
+LIBS="-lhdf5 -lz -lsz"
+
+# Make substitutions in Makevars.in
+sed \
+    -e "s|%CFLAGS%|${CFLAGS}|g" \
+    -e "s|%LIBS%|${LIBS}|g" \
+    src/Makevars.in > src/Makevars

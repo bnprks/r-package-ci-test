@@ -12,10 +12,26 @@ extern "C" SEXP _ci_package_my_minimum_cpp(SEXP a, SEXP b) {
     return cpp11::as_sexp(my_minimum_cpp(cpp11::as_cpp<cpp11::decay_t<uint64_t>>(a), cpp11::as_cpp<cpp11::decay_t<size_t>>(b)));
   END_CPP11
 }
+// code.cpp
+std::string hdf5_version_cpp();
+extern "C" SEXP _ci_package_hdf5_version_cpp() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(hdf5_version_cpp());
+  END_CPP11
+}
+// code.cpp
+std::string zlib_version_cpp();
+extern "C" SEXP _ci_package_zlib_version_cpp() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(zlib_version_cpp());
+  END_CPP11
+}
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_ci_package_my_minimum_cpp", (DL_FUNC) &_ci_package_my_minimum_cpp, 2},
+    {"_ci_package_hdf5_version_cpp", (DL_FUNC) &_ci_package_hdf5_version_cpp, 0},
+    {"_ci_package_my_minimum_cpp",   (DL_FUNC) &_ci_package_my_minimum_cpp,   2},
+    {"_ci_package_zlib_version_cpp", (DL_FUNC) &_ci_package_zlib_version_cpp, 0},
     {NULL, NULL, 0}
 };
 }

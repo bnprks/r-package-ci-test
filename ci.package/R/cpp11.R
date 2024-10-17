@@ -3,3 +3,11 @@
 my_minimum_cpp <- function(a, b) {
   .Call(`_ci_package_my_minimum_cpp`, a, b)
 }
+
+hdf5_version_cpp <- function() {
+  .Call(`_ci_package_hdf5_version_cpp`)
+}
+
+zlib_version_cpp <- function() {
+  .Call(`_ci_package_zlib_version_cpp`)
+}
