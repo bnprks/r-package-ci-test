@@ -18,19 +18,18 @@ jobs:
       - name: Install binary dependencies on mac
         if: ${{ matrix.os == 'macos-latest' || matrix.os == 'macos-13' }}
         run: brew install hdf5
-      - name: Set R compilation flags
-        run: bash -c 'mkdir -p ~/.R && echo -e "LDFLAGS=-L/my/test/dir\nMAKEFLAGS=--jobs=3" > ~/.R/Makevars${{ matrix.os == 'windows-latest' && '.win' || '' }}'
+      - name: Enable R parallel compilation
+        run: bash -c 'mkdir -p ~/.R && echo -e "MAKEFLAGS=--jobs=3" > ~/.R/Makevars${{ matrix.os == 'windows-latest' && '.win' || '' }}'
       - uses: r-lib/actions/setup-r@v2
         with:
           Ncpus: '3'
+          use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 1
           extra-packages: |
             any::testthat
             any::decor
-            any::devtools
           working-directory: 'ci.package'
       - name: Run testthat
-        run: Rscript -e 'devtools::load_all("ci.package")'
-      #- run: Rscript -e 'testthat::test_local("ci.package")'
+        run: Rscript -e 'testthat::test_local("ci.package")'
